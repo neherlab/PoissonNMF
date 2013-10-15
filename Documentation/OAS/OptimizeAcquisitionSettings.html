@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ImageJ plug-ins to optimize imaging parameters for fluorescence microscopy</title>
+</head>
+<body>
+<h2>ImageJ plug-ins to optimize imaging parameters for fluorescence microscopy</h2>
+To obtain the label concentration of spectrally overlapping labels, the 
+imaging data has to be "unmixed" by offline computation
+(<a href="#dickinson">Dickinson et al., 2001</a>). The accuracy of this linear unmixing 
+depends critically on the degree of spectral overlap between the dyes, and on the 
+choice of the spectral channels used to detect the emission. Here, we present a 
+plug-in for the image analysis software ImageJ that determines the optimal choice 
+of spectral channels and the optimal excitations for a given set of dyes. The plug-in 
+follows closely the procedure presented in <a href="#neher">Neher and Neher, 2004</a>.<br></br>
+
+
+Briefly, the plug-in first determines the optimal excitation settings assuming the emission
+is detected at full spectral resolution. Excitations are optimized by looping
+over all possible mixtures of excitation wavelength such that the total laser 
+power adds up to 100%. After the best combinations of excitation wavelengths 
+are determined, the plug-in loops over all possible choices of emission windows.
+Different configurations are compared via the sum of squared standard deviations
+of the label concentrations.
+
+<h3><a name="installation">Installation</a></h3>
+Copy the 'OptimizeAcquistionScheme_.jar' into the plug-in folder of your ImageJ
+distribution: <a href="OptimzizeAcquisitionScheme_.jar">OptimzizeAcquisitionScheme_.jar</a> version 0.5.1 
+
+<h3><a name="run">Running the plug-in</a></h3>
+Localize the plug-in the ImageJ plug-ins menu and run it. You will be asked to enter the
+number of dyes in the sample and the number of laser wavelength available. After clicking
+'Ok', a new dialog will open where more specific information about the sample and the 
+set-up has to be entered:<br></br>
+The first three fields specify the range of the emission and the resolution, at which the 
+different channels are sampled, i.e. what is the step size used for the channels boundaries
+during the optimization. Beware, the run-time of the plugin increases dramatically with smaller
+step sizes! The next two fields are used to specify the number of excitations the user wants
+to do and the number of channels that can be measured in each of the excitations. <br>
+Next, the user has to specify whether the same emission channels are to be used in all excitations
+or whether the channels should be optimized for each excitation separately. Note that
+using the same channels for all excitation is much faster and optimizing channels for more
+than 2 excitations can easily result in excessively long run-times, in particular when the 
+number of steps (lambda range over stepsize) is large (>20). The other checkbox is used to 
+specify whether the detection should be forced to start at longer wavelength than the 
+longest excitation wavelength in a specific excitation.  <br>
+The remaining fields are used to specify the available laser wave length and select the emission
+and excitation spectra from the spectral library. The can also be entered manually.<br>
+<img src="OAS_parameterDialog.png" width=400  alt="Parameter Dialog"> 
+
+
+<h4>Results</h4>
+The optimal excitations and emission channels are printed into a separate window. The emission
+channels are also indicated in the plot showing the emission spectra. Below is shown an 
+example for the dyes A488, Cy3, MitoRed and FM464. The parameters are optimized for 2 excitations,
+having the laser wavelength 488, 514 and 561nm available. <br>
+The optimal solution turns out to be one excitation at 488nm and one at 561nm, leaving the
+514nm laser unused. Note that knowledge of the excitation spectra is necessary.<br>
+
+
+<img alt="emission spectra" src="OAS_emission_spectra.png">
+<img alt="Results" src="OAS_results.png">
+
+
+<h3><a name="refs">References</a></h3>
+<a name="dickinson">[1] Dickinson, ME, Bearman, G, Tille, S, Lansford, R, and Fraser, SE. 
+Multi-spectral imaging and linear unmixing add a whole new dimension to laser scanning 
+fluorescence microscopy, BioTechniques, vol. 31 (6) pp. 1272, 2001 </a><br>
+<a name="neher">[2] Neher, R, and Neher, E. Optimizing imaging parameters for the separation of 
+multiple labels in a fluorescence image, Journal of microscopy, vol. 213 (Pt 1) pp. 46-62, 2004
+</a><br>
+</body>
+</html>

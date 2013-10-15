@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>PoissonNTF -- Examples</title>
+</head>
+<body>
+
+<a name="top"></a>
+<h2>Triple stain imaged with Leica SP2</h2>
+
+<h3>Table of Contents</h3>
+
+<ol>
+<li><a href="#intro">Sample description and download</a>
+<li><a href="#load">Loading the data</a>
+<li><a href="#params">Options and parameters</a>
+<li><a href="#runtime">Examining the progress during runtime</a>
+<li> <a href="#results">Analysing the results</a>
+</ol>
+<a href="index.html">Back to the main Page</a>
+
+<h3><a name="intro">Sample description and download</a></h3>
+Download the data set from <a href="3dyeLeica.zip">here</a>. The data consists of 
+12 images, comprising 3 excitations with 4 emission channels each. Stains: double-stranded 
+nucleic acids (mainly ribosomal RNA and nuclear DNA) were labeled with EtBr; 
+filamentous actin (F-actin) was stained with Alexa Fluor 532 (A532) conjugated phalloidin, 
+while tubulin was labeled with an Alexa Fluor 488 (A488) linked antibody. 
+The sample was imaged with a LEICA SP2 using the exciation wavelength 488, 514 and 561nm.<br>
+Raw Data: <br>
+<img src="LeicaNTF_488.jpg" width=200  alt="Lambda-Stack"> 
+<img src="LeicaNTF_514.jpg" width=200  alt="Lambda-Stack"> 
+<img src="LeicaNTF_561.jpg" width=200  alt="Lambda-Stack"> <br>
+
+<h3><a name="load">Load the data</a></h3>
+Start the plugin from the plugin menu 
+while no image is open. You will be asked to specify the type of data. Choose Leica SP2 and locate
+image series the in the open dialog that follows. Select on of the images and click "Open".
+A dialog will appear listing the excitation (488, 514 and 561nm). Select all three.
+The plugin will open three stacks, one for each excitation.
+
+<h3><a name="params">Options and Parameters</a></h3>
+The first piece of information the plugin needs to know, is the number of sources the
+data is to be decomposed into. Choose 3. Next, another dialog will appear, 
+in which the mandatory and optional information can be specified. The parameter dialog is shown in
+the next figure. The number of iterations is preset to 100 (which is rather small, but suitable for 
+illustration purposes). 
+<img src="ParameterDialog_Leica.png" align=right>
+The image is taken with a 12bit AD converter, such that a saturation threshold
+slightly below 4096 is appropriate. A background threshold of 100 is reasonable. 
+Higher background thresholds result in smaller runtime since the algorithm runs on a smaller data set. 
+For the background spectrum, <b>select ROI selection</b>, leave everything else as is and hit run.
+Next, you will be prompted for a ROI which contains only background. Select a small region 
+without cells and press OK. The algorithm will start.
+
+<h3><a name="runtime">Examine the progress during runtime</a></h3>
+After the algorithm started, PoissonNTF opened two windows displaying the emission and excitation
+spectra and a small dialog with a <b>Cancel</b> and <b>Least Square Solution</b>.  
+The plots shows the evolution of the estimated spectra and the initial spectra. If the spectra 
+look correct and don't change anymore, the user can interrupt the algorithm by pressing the <b>
+Least square solution</b> button to use the current spectra to calculate a standard linear 
+unmixing solution. The progress of the algorithm is illustrated in the ImageJ progress bar. 
+
+<h3><a name="results">Results</a></h3>
+After the last iteration finished, PoissonNTF displays an image stack containing the estimated
+sources and opens a small dialog with functions to produce false color overlay of some of the
+sources, save the spectra or display the background spectrum. 
+The spectra are normalized to unit area and the concentrations maps are scaled to maximum intensity. 
+The actual scale of the images is absorbed in the excitation efficiencies, which can be of 
+vastly different magnitudes. If desired, images can be individually rescaled
+using functions ImageJ provides.
+
+<h4>Spectra and Sources</h4>
+Emission Spectra:<br>
+<img src="LeicaEmissionSpectra.jpg"><br>
+Excitation Spectra:<br>
+<img src="LeicaExcitationSpectra.jpg"><br>
+
+
+<h4>RBG false color overlay</h4>
+After pressing the <b>RGB overlay</b> button, a small dialog appears where the sources are assigned
+to colors. PoissonNMF then produces a RGB picture according to the selection, where each source
+is scaled to maximum intensity. <br>
+
+<img src="RGB_dialog.png"><br>
+Red-Green-Blue Overlay:<br>
+<img src="RGB_Leica.jpg"> 
+
+<h4>Background Map</h4>
+The button <b>Background map</b> displays the partition of the image into background, saturated regions and the parts used for the analysis. Pixels that fall below the background threshold in every lambda channel are displayed in blue, the saturated regions in red and the part used for the analysis in green.
+</body>
+
