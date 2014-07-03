@@ -147,7 +147,7 @@ public class PoissonNTF_ implements PlugInFilter {
 			int d=1; for (int i = 2; i < dim[0].length; i++) d*=dim[0][i];
 			if (d==1)
 			{
-				IJ.error("Stack required!");
+				IJ.error("Stack required for each excitation!");
 				return DONE; 	
 			}
 			//if stack is ok, convert to 32 gray scale and assign dimensions.
@@ -168,7 +168,7 @@ public class PoissonNTF_ implements PlugInFilter {
 		}
 		else
 		{
-			IJ.error("Stack required!");
+			IJ.error("Stack Loading failed: Stack required!");
 			return DONE; 
 		}
 		if (arg.equals("about")) { 

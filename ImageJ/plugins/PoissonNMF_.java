@@ -1234,6 +1234,9 @@ public class PoissonNMF_ implements PlugInFilter {
 			}
 		};
 		//produce a list of files that end on emn in directory /plugins/SpectraLibrary
+
+		//TODO: sort the list of files alphanetically
+		//TODO: get the proper path the plugin directory. The current implementation only works if IJ is called from inside its directory
 		String curDir = System.getProperty("user.dir");
 		curDir=curDir.concat("/plugins/SpectraLibrary");
 		File spec_directory=new File(curDir);
